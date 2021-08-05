@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title> Upload video</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+    <div class="container p-5">
+        <div class="flex flex-row" id="videos-list">
+
+        </div>
+    </div>
+
+    <script>
+        window.onload = function () {
+            var videos_element = document.querySelector('#videos-list')
+            new Promise(r => setTimeout(r, 1000)).then(() => {
+                videos_element.innerHTML = ""
+                var videos = [
+                    { "name": "Video1", "link": "https://www.youtube.com/" },
+                    { "name": "Video2", "link": "https://www.youtube.com/" },
+                    { "name": "Video3", "link": "https://www.youtube.com/" }
+                ]
+                videos.forEach((video) => {
+                    let el = document.createElement('div');
+                    el.setAttribute("class", "container flex justify-center")
+                    el.innerHTML = `
+                            <div class="max-w-sm py-32">
+                            <div class="bg-white relative shadow-lg hover:shadow-xl transition duration-500 rounded-lg">
+                                <img class="rounded-t-lg" src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1049&q=80" alt="" />
+                                <div class="py-6 px-8 rounded-lg bg-white">
+                                <h1 class="text-gray-700 font-bold text-2xl mb-3 hover:text-gray-900 hover:cursor-pointer">${video.name}</h1>
+                                <a class="mt-6 py-2 px-4 bg-yellow-400 text-gray-800 font-bold rounded-lg shadow-md hover:shadow-lg transition duration-300" href="${video.link}">View</a>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                    `
+                    videos_element.appendChild(el)
+                })
+            })
+        }
+    </script>
+</body>
+
+</html>
