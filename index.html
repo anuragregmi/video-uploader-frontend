@@ -67,11 +67,12 @@
       font-weight: 300;
     }
 
-    .file-upload-wrapper:before {
+    .upload-button {
       content: "Upload";
       position: absolute;
       top: 0;
       right: 0;
+      width: 20%;
       display: inline-block;
       height: 60px;
       background: #4daf7c;
@@ -82,11 +83,12 @@
       line-height: 60px;
       padding: 0 15px;
       text-transform: uppercase;
-      pointer-events: none;
+      border: none;
       border-radius: 0 5px 5px 0;
+      padding: 0;
     }
 
-    .file-upload-wrapper:hover:before {
+    .upload-button:hover {
       background: #3d8c63;
     }
 
@@ -103,7 +105,7 @@
       padding: 0;
       display: block;
       cursor: pointer;
-      width: 100%;
+      width: 80%;
     }
   </style>
 </head>
@@ -114,17 +116,35 @@
   <div class="container bg-custom">
     <form class="form">
       <div class="file-upload-wrapper" data-text="Select your file!" id="file-upload-wrapper">
-        <input name="file-upload-field" type="file" class="file-upload-field" value="" id="file-upload-field">
+        <input name="raw_file" type="file" class="file-upload-field" value="" id="file-upload-field" required>
+        <button class="upload-button" type="submit">Upload</button>
       </div>
     </form>
   </div>
 
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="/axios.js"></script>
   <script>
     var upload_field = document.querySelector('#file-upload-field')
     upload_field.addEventListener("change", () => {
       var wrapper = document.querySelector('#file-upload-wrapper')
       wrapper.setAttribute('data-text', upload_field.value.replace(/.*(\/|\\)/, ''))
     })
+
+  var form = document.querySelector('form')
+  form.addEventListener("submit", (event) => {
+    event.preventDefault()
+    if (!form.checkValidity()) {
+      form.reportValidity()
+    }
+
+    const formData = new FormData(form)
+    $axios.post('/api/v1/videos/', formData).then(() => alert("success")).catch((e) => {
+      console.log(e)
+      alert("failed")
+    })
+
+  })
   </script>
 </body>
 
