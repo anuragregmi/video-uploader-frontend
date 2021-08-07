@@ -123,7 +123,7 @@
   </div>
 
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="/axios.js"></script>
+  <script src="/scriptS.js"></script>
   <script>
     var upload_field = document.querySelector('#file-upload-field')
     upload_field.addEventListener("change", () => {
@@ -139,7 +139,9 @@
     }
 
     const formData = new FormData(form)
-    $axios.post('/api/v1/videos/', formData).then(() => alert("success")).catch((e) => {
+    $axios.post('/api/v1/videos/', formData).then(() => {
+      window.location.href = '/videos/'
+    }).catch((e) => {
       console.log(e)
       alert("failed")
     })
