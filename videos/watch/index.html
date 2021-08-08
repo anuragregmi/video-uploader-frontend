@@ -14,19 +14,50 @@
 </head>
 
 <body>
-    <div class="w-full h-screen flex items-center justify-center">
-        <video id="video" class="video-js vjs-default-skin w-full md:w-2/3" style="min-height: 400px;" controls>
-            <source src="https://anurag-video-output.s3.amazonaws.com/converted/file_example_MP4_480_1_5MG_HEjSi3d.mp41M.m3u8"
-                type="application/x-mpegURL" label="1000">
-            <source src="https://anurag-video-output.s3.amazonaws.com/converted/file_example_MP4_480_1_5MG_HEjSi3d.mp42M.m3u8"
-                type="application/x-mpegURL" label="2000">
-            <source src="https://anurag-video-output.s3.amazonaws.com/converted/file_example_MP4_480_1_5MG_HEjSi3d.mp4600K.m3u8"
-                type="application/x-mpegURL" label="600">
-        </video>
+    <div class="w-full h-screen flex items-center justify-center" id="video-box">
+        <div class="w-full md:w-2/3" style="height: 700px">
+            <video id="video" class="video-js vjs-default-skin vjs-fill vjs-16-9" controls>
+            </video>
+        </div>
     </div>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/script.js"></script>
     <script>
-        var player = videojs('video');
-        player.controlBar.addChild('QualitySelector');
+        window.onload = function () {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const video_id = urlParams.get('id')
+
+            var video_element = document.querySelector('video')
+
+            $axios.get(`/api/v1/videos/${video_id}`).then(
+                (response) => {
+                    var videos = response.data.outputs
+                    videos.forEach((video) => {
+                        var el = document.createElement('source')
+                        el.setAttribute('src', video.playlist),
+                            el.setAttribute('type', "application/x-mpegURL"),
+                            el.setAttribute('label', video.display)
+                        video_element.appendChild(el)
+                    })
+
+                    var title = document.createElement('h1')
+                    title.setAttribute('style', "text-align: center")
+                    title.innerHTML = response.data.file_name
+                    video_element.parentNode.appendChild(title)
+
+                    var player = videojs('video', {
+                        responsive: true,
+                        fluid: true
+                    });
+                    player.controlBar.addChild('QualitySelector')
+
+                }
+            ).catch(() => {
+                document.querySelector('#video-box').innerHTML = "<h1>Video Not Found</h1>"
+            })
+        }
     </script>
 </body>
 
