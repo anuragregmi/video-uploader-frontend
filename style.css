@@ -6,9 +6,42 @@ body {
   background-image: linear-gradient(to top right,#bf7a6b 0%, #e6d8a7 100%);
   border: 0px;
   background-attachment: fixed;
+  padding-top: 50px;
 }
 
 button {
   font-weight: 700;
   font-family: "Lato", sans-serif;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+nav li {
+  float: left;
+}
+
+nav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+nav li a:hover {
+  background-color: #111;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 }

@@ -1,6 +1,6 @@
 const token = window.localStorage.getItem('authToken')
 const $axios = axios.create({
-    baseURL: 'http://localhost:8000/',
+    baseURL: `http://${window.location.hostname}:8000/`,
     headers: token ? { 'Authorization': `token ${token}` } : {}
 });
 

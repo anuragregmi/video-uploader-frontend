@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <title> Upload video</title>
@@ -7,7 +8,7 @@
   <style>
     .container {
       position: absolute;
-      top: 0;
+      top: 25px;
       right: 0;
       bottom: 0;
       left: 0;
@@ -111,12 +112,22 @@
 </head>
 
 <body>
+  <nav>
+    <ul>
+      <li><a href="/">Upload</a></li>
+      <li><a href="/videos">Videos</a></li>
+      <li style="float: right"><a href="/login" id="login-link">Login</a></li>
+    </ul>
+  </nav>
+
   <!-- check login before loading other content -->
   <script src="/checkLogin.js" type="text/javascript"></script>
-  <div class="container bg-custom">
+
+
+  <div class="container">
     <form class="form">
       <div class="file-upload-wrapper" data-text="Select your file!" id="file-upload-wrapper">
-        <input name="raw_file" type="file" class="file-upload-field" value="" id="file-upload-field" required>
+        <input name="raw_file" type="file" class="file-upload-field" value="" id="file-upload-field" required />
         <button class="upload-button" type="submit">Upload</button>
       </div>
     </form>
@@ -131,22 +142,22 @@
       wrapper.setAttribute('data-text', upload_field.value.replace(/.*(\/|\\)/, ''))
     })
 
-  var form = document.querySelector('form')
-  form.addEventListener("submit", (event) => {
-    event.preventDefault()
-    if (!form.checkValidity()) {
-      form.reportValidity()
-    }
+    var form = document.querySelector('form')
+    form.addEventListener("submit", (event) => {
+      event.preventDefault()
+      if (!form.checkValidity()) {
+        form.reportValidity()
+      }
 
-    const formData = new FormData(form)
-    $axios.post('/api/v1/videos/', formData).then(() => {
-      window.location.href = '/videos/'
-    }).catch((e) => {
-      console.log(e)
-      alert("failed")
+      const formData = new FormData(form)
+      $axios.post('/api/v1/videos/', formData).then(() => {
+        window.location.href = '/videos/'
+      }).catch((e) => {
+        console.log(e)
+        alert("failed")
+      })
+
     })
-
-  })
   </script>
 </body>
 

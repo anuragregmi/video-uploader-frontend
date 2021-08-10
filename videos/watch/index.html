@@ -13,9 +13,18 @@
         src="https://unpkg.com/@silvermine/videojs-quality-selector/dist/js/silvermine-videojs-quality-selector.min.js"></script>
 </head>
 
-<body>
-    <div class="w-full h-screen flex items-center justify-center py-10" id="video-box">
-        <div class="w-full md:w-2/3" style="height: 700px">
+<body style="padding-top: 0px">
+    <nav>
+        <ul>
+            <li><a href="/">Upload</a></li>
+            <li><a href="/videos">Videos</a></li>
+            <li style="float: right"><a href="/login" id="login-link">Login</a></li>
+        </ul>
+    </nav>
+    <script src="/checkLogin.js" type="text/javascript"></script>
+
+    <div class="w-full h-screen pt-25 flex items-center justify-center" id="video-box">
+        <div class="w-full md:w-2/3">
             <video id="video" class="video-js vjs-default-skin vjs-fill vjs-16-9" controls>
             </video>
         </div>
